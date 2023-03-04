@@ -1,34 +1,24 @@
 from classes.NKls_formula import NKlsFormula
 from classes.NKls import NKls
-from pprint import pprint
-#if __name__ == '__main__':
+if __name__ == '__main__':
 
-system = NKls()
+    system = NKls()
 
+    a = NKlsFormula('A')
+    b = NKlsFormula('B')
+    c = NKlsFormula('C')
+    d = NKlsFormula('D')
+    nd = NKlsFormula(d, '~')
+    nnd = NKlsFormula(nd, '~')
 
-
-t =  NKlsFormula('T')
-d =  NKlsFormula('D')
-c =  NKlsFormula('C')
-
-td  = NKlsFormula(t,'&',d)
-dc = NKlsFormula(d,'&',c)
-tdc = NKlsFormula(t,'&',dc)
-tddc = NKlsFormula(td,'&',dc)
-
-nt =  NKlsFormula(t,'~')
+    ad = NKlsFormula(a, '&', nnd)
+    bc = NKlsFormula(b, '&', c)
+    abc = NKlsFormula(a, '&', bc)
+    abcd = NKlsFormula(abc, '&', ad)
 
 
+    system.line_add(abcd,'premise')
 
-dtd =  NKlsFormula(d,'<->',td)
-ndtd =  NKlsFormula(dtd,'&',t)
+    system.target_set('d')
 
-print("logica si software")
-print( t.string() )
-print( t.length() )
-print( tddc.string() )
-print( tddc.length() )
-
-
-
-
+    system.run()

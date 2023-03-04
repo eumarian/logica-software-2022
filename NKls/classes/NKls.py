@@ -17,9 +17,7 @@ import numpy as np
 class NKls:
 
     def __init__(self):
-        self.lines = []
-        self.lines_success = []
-        self.rules = []
+        self.lines = self.lines_success = self.rules = []
         self.target = False
         self.rules_add()
 
@@ -50,7 +48,7 @@ class NKls:
         ret = []
         for line in self.lines:
             if line.source_type == 'premise':
-                ret = np.unique(np.array(ret + line.base_lines))
+                ret = np.unique(np.array(ret + line.base_lines()))
 
 
     def compute_lines_success(self, newline):
@@ -91,7 +89,7 @@ class NKls:
         print(self.rules)
         # maxl = NKls.lines_length(self.lines + self.target)
         maxl = 4
-        return
+
         already_strings = []
 
         while True:

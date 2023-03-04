@@ -9,7 +9,7 @@ class NKlsLine:
         self.base_lines = []
 
         self.system = system
-        self.system.lines.append(self)
+        self.system.lines = self  # -------------------???
 
         self.formula = formula
         if source_type in ['assumption', 'premise', 'rule']:
@@ -17,25 +17,21 @@ class NKlsLine:
             self.source_lines = source_lines
             self.base_lines = base_lines
 
-        if len(self.base_lines) == 0:
+        if not self.base_lines:
             self.base_lines = [self.line_number()]
 
+    def formula(self):
+        return self.formula
 
     def line_number(self, from1=False):
+
         add = 1 if from1 else 0
 
         # k = find_key de vazut array_search
         k = 0
-        for line in self.system.lines:
-            if line == self:
-                break
-            k += 1
+        ret = k + add if k is not False else False
 
-        ret = k + add
         return ret
-
-    def line_formula(self, from1=False):
-        return self.formula.string()
 
     def base_lines(self):
         return self.base_lines

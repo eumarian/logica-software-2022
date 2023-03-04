@@ -1,5 +1,5 @@
 from pprint import pprint
-# A & (B & C )
+
 class NKlsFormula:
 
     def __init__(self, subformula1, op='', subformula2=None):
@@ -37,8 +37,14 @@ class NKlsFormula:
     def is_atomic(self):
         return not self.op
 
+    def op(self):
+        return self.op
 
+    def subformula1(self):
+        return self.subformula1
 
+    def subformula2(self):
+        return self.subformula2
 
     def subformulas(self):
         ret = [self.subformula1, self.op, self.subformula2]
@@ -47,11 +53,8 @@ class NKlsFormula:
     def length(self):
         ret = 0
         if not self.is_atomic():
-            l1 = self.subformula1.length()
-            l2 = self.subformula2.length() if self.subformula2 else 0
-            ret = max(l1, l2) + 1
+            l1 = self.subformula1
+            l2 = self.subformula2 if self.subformula2 else 0
+            ret = max(l1, l2)
         return ret
 
-    def has_dn(self):
-        ret = self.op == '~' and self.subformula1.op == '~'
-        return ret
